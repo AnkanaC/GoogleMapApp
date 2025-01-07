@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:myapp/blocs/application_bloc.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,8 +13,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final applicationBloc = Provider.of<ApplicationBloc>(context);
     return Scaffold(
-      body: ListView(
+      body: (applicationBloc.currentLocation == null)
+      ? const Center(child: CircularProgressIndicator())
+      : Column(
         children: [
           const TextField(
             decoration: InputDecoration(
@@ -21,8 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ), //for search bar
           Container(
             height: 300.0,
-            child: const GoogleMap(
-              initialCameraPosition: CameraPosition(target: LatLng(22.5744, 88.3629)),
+            child: GoogleMap(
+              initialCameraPosition: CameraPosition(target: 
+                LatLng(
+                  applicationBloc.currentLocation.latitude,
+                  applicationBloc.currentLocation.longitude
+                  ),
+                  zoom: 15.0,
+                ),
               mapType: MapType.normal,
               myLocationEnabled: true
             ),
