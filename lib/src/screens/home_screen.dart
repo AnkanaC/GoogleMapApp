@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
               hintText: 'Search Location'
             ),
           ), //for search bar
-          Container(
+          SizedBox(
             height: 300.0,
             child: GoogleMap(
               initialCameraPosition: CameraPosition(target: 
