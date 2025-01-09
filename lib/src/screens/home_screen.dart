@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ), //for search bar
                   Stack(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 300.0,
                         child: GoogleMap(
                             initialCameraPosition: CameraPosition(
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             myLocationEnabled: true),
                       ),
                       // ignore: unnecessary_null_comparison
-                      if (applicationBloc.searchResults != null && applicationBloc.searchResults.length != 0)
+                      if (applicationBloc.searchResults != null && applicationBloc.searchResults.isNotEmpty)
                       Container(
                         height: 300.0,
                         width: double.infinity,
@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundBlendMode: BlendMode.darken,
                         ),
                       ),
+                      if (applicationBloc.searchResults != null && applicationBloc.searchResults.isNotEmpty)
                       Container(
                         height: 300.0,
                         child: ListView.builder(
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             return ListTile(
                               title: Text(
                                 result.toString(),
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ), // Customize based on your data type
                             );
                           },
